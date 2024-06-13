@@ -1,3 +1,47 @@
+//dog buttons
+
+tugBtn = document.getElementById("");
+fetchBtn = document.getElementById("");
+napBtn = document.getElementById("");
+scratchBtn = document.getElementById("");
+
+
+tugBtn.addEventListener("click", () => {
+  pet.tug();
+});
+
+fetchBtn.addEventListener("click", () => {
+  pet.fetch();
+});
+
+//cat buttons
+
+napBtn.addEventListener("click", () => {
+  pet.nap();
+});
+
+scratchBtn.addEventListener("click", () => {
+  pet.scratch();
+});
+
+const gameOver = () => {
+  if (pet.health <= 0) {
+    clearInterval(timer);
+    console.log(`${this.name} has died!`);
+  } else if (pet.hunger <= 0) {
+    clearInterval(timer);
+    console.log(`${this.name} has starved to death!`);
+  } else if (pet.happiness <= 0) {
+    clearInterval(timer);
+    console.log(`${this.name} ran away...`);
+  } else if (pet.hunger <= 0 && pet.happiness <= 0) {
+    clearInterval(timer);
+    console.log(
+      `${this.name} ran away from home and later starved to death...`
+    );
+  }
+};
+
 class Animal {
   constructor(name) {
     this.name = name;
@@ -37,22 +81,20 @@ class Animal {
     });
   }
 
-
-startHungerThirstDecay() {
-  this.hungerThirstDecayInterval = setInterval(() => {
-    this.decreaseHungerThirst();
-  }, 5000);
-}
-
-
-decreaseHungerThirst() {
-  if (this.hunger >0) {
-    this.hunger -=5;
+  startHungerThirstDecay() {
+    this.hungerThirstDecayInterval = setInterval(() => {
+      this.decreaseHungerThirst();
+    }, 5000);
   }
-  if(this.thirst > 0) {
-    this.thirst -= 8; // animals can live longer without food then water, thirst decreases faster to reflect this
+
+  decreaseHungerThirst() {
+    if (this.hunger > 0) {
+      this.hunger -= 5;
+    }
+    if (this.thirst > 0) {
+      this.thirst -= 8; // animals can live longer without food then water, thirst decreases faster to reflect this
+    }
   }
-}
 }
 
 //dog subclass
