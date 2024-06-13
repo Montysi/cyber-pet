@@ -36,13 +36,14 @@ class Animal {
       this: this.thirst,
     });
   }
-}
+
 
 startHungerThirstDecay() {
   this.hungerThirstDecayInterval = setInterval(() => {
     this.decreaseHungerThirst();
   }, 5000);
 }
+
 
 decreaseHungerThirst() {
   if (this.hunger >0) {
@@ -51,6 +52,7 @@ decreaseHungerThirst() {
   if(this.thirst > 0) {
     this.thirst -= 8; // animals can live longer without food then water, thirst decreases faster to reflect this
   }
+}
 }
 
 //dog subclass
