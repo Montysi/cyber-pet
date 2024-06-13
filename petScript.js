@@ -1,10 +1,26 @@
-//dog buttons
+console.log("hello world")
+
+// for testing, can remove later
+const dogBtn = document.getElementById("testDog")
+const catBtn = document.getElementById("testCat")
+
+
 
 tugBtn = document.getElementById("");
 fetchBtn = document.getElementById("");
 napBtn = document.getElementById("");
 scratchBtn = document.getElementById("");
 
+// eventlistener test
+dogBtn.addEventListener("click", () => {
+  alert("this is a dog")
+})
+
+catBtn.addEventListener("click", () => {
+  alert("this is a cat");
+});
+
+//dog buttons
 
 tugBtn.addEventListener("click", () => {
   pet.tug();
