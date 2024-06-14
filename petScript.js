@@ -121,6 +121,18 @@ class Animal {
       this.thirst -= 8; // animals can live longer without food then water, thirst decreases faster to reflect this
     }
   }
+
+  startHappinessDecay() {
+    this.happinessDecayInterval = setInterval(() => {
+      this.decreaseHappiness();
+    }, 5000)
+  }
+
+  decreaseHappiness() {
+    if(this.happiness > 0) {
+      this.happiness -=5;
+    }
+  }
 }
 
 //dog subclass
