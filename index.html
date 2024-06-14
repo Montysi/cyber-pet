@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./style.css" />
@@ -16,7 +16,47 @@
     <div class="tamagotchi-wrapper">
       <div class="tamagotchi-container">
         <div class="tamagotchi-screen">
-          <p class="tamagotchi-text">Hello, Tamagotchi!</p>
+          <div class="stats">
+            <div class="stat">
+              <span class="label">Health</span>
+              <div class="bar">
+                <div class="progress health-progress" id="health-progress">
+                  54
+                </div>
+              </div>
+              <span class="value" id="health-value">54</span>
+            </div>
+            <div class="stat">
+              <span class="label">Hunger</span>
+              <div class="bar">
+                <div class="progress hunger-progress" id="hunger-progress">
+                  45
+                </div>
+              </div>
+              <span class="value" id="hunger-value">45</span>
+            </div>
+            <div class="stat">
+              <span class="label">Thirst</span>
+              <div class="bar">
+                <div class="progress thirst-progress" id="thirst-progress">
+                  10
+                </div>
+              </div>
+              <span class="value" id="thirst-value">10</span>
+            </div>
+            <div class="stat">
+              <span class="label">Happiness</span>
+              <div class="bar">
+                <div
+                  class="progress happiness-progress"
+                  id="happiness-progress"
+                >
+                  9
+                </div>
+              </div>
+              <span class="value" id="happiness-value">9</span>
+            </div>
+          </div>
         </div>
         <div class="tamagotchi-dog-controls">
           <div class="button health"><span class="nap-label">Nap</span>A</div>
@@ -30,5 +70,7 @@
         </div>
       </div>
     </div>
+
+    <script src="./script.js"></script>
   </body>
 </html>
