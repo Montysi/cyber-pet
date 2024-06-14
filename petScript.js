@@ -20,24 +20,34 @@ catBtn.addEventListener("click", () => {
   alert("this is a cat");
 });
 
-//dog buttons
+// pet interaction buttons
 
-tugBtn.addEventListener("click", () => {
-  pet.tug();
+feedBtn.addEventListener("click", () => {
+  Animal.feed();
 });
 
-fetchBtn.addEventListener("click", () => {
-  pet.fetch();
+giveDrinkBtn.addEventListener("click", () => {
+  Animal.giveDrink();
+});
+
+//dog buttons
+
+goForWalkBtn.addEventListener("click", () => {
+  Dog.tug();
+});
+
+playFetchBtn.addEventListener("click", () => {
+  Dog.playFetch();
 });
 
 //cat buttons
 
-napBtn.addEventListener("click", () => {
-  pet.nap();
+haveNapBtn.addEventListener("click", () => {
+  Cat.haveNnap();
 });
 
-scratchBtn.addEventListener("click", () => {
-  pet.scratch();
+scratchPostBtn.addEventListener("click", () => {
+  Cat.scratchPost();
 });
 
 const gameOver = () => {
