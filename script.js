@@ -38,6 +38,7 @@ class Animal {
     this.hunger = 100;
     this.thirst = 100;
     this.happiness = 100;
+    this.isGameRunning = true;
 
     this.startHungerThirstDecay();
     this.startHappinessDecay();
@@ -77,10 +78,18 @@ class Animal {
     });
   }
 
+  // startHungerThirstDecay() {
+  //   this.hungerThirstDecayInterval = setInterval(() => {
+  //     this.decreaseHungerThirst();
+  //   }, 2000);
+  // }
+
   startHungerThirstDecay() {
-    this.hungerThirstDecayInterval = setInterval(() => {
-      this.decreaseHungerThirst();
-    }, 5000);
+    if (this.IsGameRuning === true) {
+      this.hungerThirstDecayInterval = setInterval(() => {
+        this.decreaseHungerThirst();
+      }, 2000);
+    }
   }
 
   decreaseHungerThirst() {
@@ -90,27 +99,52 @@ class Animal {
     if (this.thirst > 0) {
       this.thirst -= 8; // animals can live longer without food than water, thirst decreases faster to reflect this
     }
+    if (
+      this.thirst <= 0 ||
+      this.health <= 0 ||
+      this.hunger <= 0 ||
+      this.happiness <= 0
+    ) {
+      this.IsGameRuning = false;
+      console.log(this.isGameRunning);
+      gameOver();
+    }
     updateStats(this);
   }
 
   startHappinessDecay() {
+    if (this.isGameRunning === true) {
     this.happinessDecayInterval = setInterval(() => {
       this.decreaseHappiness();
-    }, 5000);
+    }, 2000);
   }
+}
 
   decreaseHappiness() {
     if (this.happiness > 0) {
       this.happiness -= 5;
     }
+    if (
+      this.thirst <= 0 ||
+      this.health <= 0 ||
+      this.hunger <= 0 ||
+      this.happiness <= 0
+    ) {
+      this.IsGameRuning = false;
+      console.log(this.isGameRunning);
+      gameOver();
+    }
     updateStats(this);
+
   }
 
   startHealthDecay() {
+    if (this.isGameRunning === true) {
     this.healthDecayInterval = setInterval(() => {
       this.decreaseHealth();
-    }, 5000);
+    }, 2000);
   }
+}
 
   decreaseHealth() {
     if (this.hunger <= 50) {
@@ -118,6 +152,16 @@ class Animal {
     }
     if (this.thirst <= 50) {
       this.health -= 5;
+    }
+    if (
+      this.thirst <= 0 ||
+      this.health <= 0 ||
+      this.hunger <= 0 ||
+      this.happiness <= 0
+    ) {
+      this.IsGameRuning = false;
+      console.log(this.isGameRunning)
+      gameOver();
     }
     updateStats(this);
   }
@@ -157,20 +201,36 @@ class Cat extends Animal {
   }
 
   haveNap() {
-    this.health += 15;
+    if (this.health += 15 > 100) {
+      this.health = 100
+    } else {
+      this.health += 15;
+    }
     this.hunger -= 5;
     this.thirst -= 5;
-    this.happiness += 5;
+    if (this.happiness += 15 > 100) {
+      this.happiness = 100;
+    } else {
+      this.happiness += 15;
+    }
     console.log(`${this.name} had a quick cat-nap and seems refreshed!`);
     updateStats(this);
     return this;
   }
 
   scratchPost() {
-    this.health += 10;
+    if ((this.health += 15 > 100)) {
+      this.health = 100;
+    } else {
+      this.health += 15;
+    }
     this.hunger -= 10;
     this.thirst -= 10;
-    this.happiness += 20;
+    if ((this.happiness += 15 > 100)) {
+      this.happiness = 100;
+    } else {
+      this.happiness += 15;
+    }
     console.log(
       `${this.name} had a good scratch on their scratching post and seems content!`
     );
@@ -221,21 +281,20 @@ giveDrinkBtn.addEventListener("click", () => {
 
 // Create a pet instance for testing
 const pet = new Cat("Whiskers");
+console.log(pet);
 updateStats(pet);
 showButtons(pet); // Show buttons based on animal type
 
+
 const gameOver = () => {
   if (pet.health <= 0) {
-    clearInterval(timer);
-    console.log(`${pet.name} has died!`);
-  } else if (pet.hunger <= 0) {
-    clearInterval(timer);
-    console.log(`${pet.name} has starved to death!`);
-  } else if (pet.happiness <= 0) {
-    clearInterval(timer);
-    console.log(`${pet.name} ran away...`);
-  } else if (pet.hunger <= 0 && pet.happiness <= 0) {
-    clearInterval(timer);
-    console.log(`${pet.name} ran away from home and later starved to death...`);
+    alert(`${this.name} has died!`);
+  } if (pet.hunger <= 0) {
+    alert(`${this.name} has starved to death!`);
+  } if (pet.happiness <= 0) {
+    alert(`${this.name} ran away...`);
+  } if (pet.hunger <= 0 && pet.happiness <= 0) {
+    alert(`${this.name} ran away from home and later starved to death...`
+    );
   }
 };
