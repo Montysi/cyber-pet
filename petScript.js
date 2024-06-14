@@ -1,10 +1,8 @@
-console.log("hello world")
+console.log("hello world");
 
 // for testing, can remove later
-const dogBtn = document.getElementById("testDog")
-const catBtn = document.getElementById("testCat")
-
-
+const dogBtn = document.getElementById("testDog");
+const catBtn = document.getElementById("testCat");
 
 tugBtn = document.getElementById("");
 fetchBtn = document.getElementById("");
@@ -13,8 +11,8 @@ scratchBtn = document.getElementById("");
 
 // eventlistener test
 dogBtn.addEventListener("click", () => {
-  alert("this is a dog")
-})
+  alert("this is a dog");
+});
 
 catBtn.addEventListener("click", () => {
   alert("this is a cat");
@@ -62,8 +60,7 @@ const gameOver = () => {
     alert(`${this.name} ran away...`);
   } else if (pet.hunger <= 0 && pet.happiness <= 0) {
     clearInterval(timer);
-    alert(`${this.name} ran away from home and later starved to death...`
-    );
+    alert(`${this.name} ran away from home and later starved to death...`);
   }
 };
 
@@ -126,11 +123,11 @@ class Animal {
   startHappinessDecay() {
     this.happinessDecayInterval = setInterval(() => {
       this.decreaseHappiness();
-    }, 5000)
+    }, 5000);
   }
 
   decreaseHappiness() {
-    if(this.happiness > 0) {
+    if (this.happiness > 0) {
       this.happiness -= 5;
     }
   }
@@ -138,7 +135,7 @@ class Animal {
   startHealthDecay() {
     this.healthDecayInterval = setInterval(() => {
       this.decreaseHealth();
-    }, 5000)
+    }, 5000);
   }
 
   decreaseHealth() {
@@ -148,8 +145,7 @@ class Animal {
     if (this.thirst <= 50) {
       this.health -= 5;
     }
-  };
-    
+  }
 }
 
 //dog subclass
@@ -201,5 +197,28 @@ class Cat extends Animal {
       `${this.name} had a good scratch on their scratching post and seems content!`
     );
     return this;
+  }
+}
+
+//rabbit subclass
+class Rabbit extends Animal {
+  constructor(name) {
+    super(name);
+  }
+
+  petTheFluff() {
+    this.health += 10;
+    this.hunger -= 10;
+    this.thirst -= 10;
+    this.happiness += 20;
+    console.log(`You pet ${this.name}! They're so fluffy you could die!`);
+    return this;
+  }
+
+  cleanDen() {
+    this.health += 10;
+    this.hunger -= 5;
+    this.thirst -= 5;
+    this.happiness += 10;
   }
 }
