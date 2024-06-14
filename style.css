@@ -123,3 +123,48 @@ body {
   top: 50%;
   transform: translateY(-50%);
 }
+
+.nap-label {
+  position: absolute;
+  top: -37px;
+  background: #212121;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  width: 43px;
+  text-align: center;
+}
+
+.scratch-label {
+  position: absolute;
+  background: #212121;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  left: 60px;
+  width: 80px;
+  text-align: center;
+  top: 7px;
+}
+
+.feed-label {
+  position: absolute;
+  background: #212121;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  width: 80px;
+  text-align: center;
+  top: 55px;
+}
+
+.drink-label {
+  position: absolute;
+  background: #212121;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  width: 80px;
+  text-align: center;
+  right: 55px;
+}
