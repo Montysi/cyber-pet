@@ -4,10 +4,12 @@ console.log("hello world");
 const dogBtn = document.getElementById("testDog");
 const catBtn = document.getElementById("testCat");
 
-tugBtn = document.getElementById("");
-fetchBtn = document.getElementById("");
-napBtn = document.getElementById("");
-scratchBtn = document.getElementById("");
+feedBtn = document.getElementById("");
+giveDrinkBtn = document.getElementById("");
+goForWalkBtn = document.getElementById("");
+playFetchBtn = document.getElementById("");
+haveNapBtn = document.getElementById("");
+scratchPostBtn = document.getElementById("");
 
 // eventlistener test
 dogBtn.addEventListener("click", () => {
