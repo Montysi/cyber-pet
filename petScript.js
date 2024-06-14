@@ -130,9 +130,25 @@ class Animal {
 
   decreaseHappiness() {
     if(this.happiness > 0) {
-      this.happiness -=5;
+      this.happiness -= 5;
     }
   }
+
+  startHealthDecay() {
+    this.healthDecayInterval = setInterval(() => {
+      this.decreaseHealth();
+    }, 5000)
+  }
+
+  decreaseHealth() {
+    if (this.hunger <= 50) {
+      this.health -= 5;
+    }
+    if (this.thirst <= 50) {
+      this.health -= 5;
+    }
+  };
+    
 }
 
 //dog subclass
