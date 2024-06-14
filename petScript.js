@@ -51,16 +51,16 @@ scratchPostBtn.addEventListener("click", () => {
 });
 
 const gameOver = () => {
-  if (pet.health <= 0) {
+  if (Animal.health <= 0) {
     clearInterval(timer);
     console.log(`${this.name} has died!`);
-  } else if (pet.hunger <= 0) {
+  } else if (Animal.hunger <= 0) {
     clearInterval(timer);
     console.log(`${this.name} has starved to death!`);
-  } else if (pet.happiness <= 0) {
+  } else if (Animal.happiness <= 0) {
     clearInterval(timer);
     console.log(`${this.name} ran away...`);
-  } else if (pet.hunger <= 0 && pet.happiness <= 0) {
+  } else if (Animal.hunger <= 0 && pet.happiness <= 0) {
     clearInterval(timer);
     console.log(
       `${this.name} ran away from home and later starved to death...`
