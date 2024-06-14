@@ -1,9 +1,42 @@
 body {
   font-family: "IBM Plex Mono", monospace;
   background: #9ddbce;
-  margin: 0;
+  margin: 35vh;
   padding: 0;
+  display: block;
+  place-items: center;
+  background-image: url(images/cat-dog.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 100vh;
+  justify-content: center;
+  overflow: hidden;
 }
+#centreText {
+  color:red
+}
+#testDog{
+  background-color: red;
+  margin: 30px;
+  font-size: 20px;
+}
+
+#testCat{
+  background-color:blanchedalmond;
+  font-size: 20px;
+}
+  
+.Pet {
+  font-family:serif;
+  display: flex;
+  padding: 50px;
+  background-color: white;
+  border-radius: 5px;
+  margin:80px;
+  box-sizing: 50px;
+ }
 
 .tamagotchi-wrapper {
   width: 100%;
