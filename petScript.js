@@ -77,6 +77,8 @@ class Animal {
     this.happiness = 100;
 
     this.startHungerThirstDecay();
+    this.startHappinessDecay();
+    this.startHealthDecay();
   }
   giveDrink() {
     this.health += 5;
