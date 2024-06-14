@@ -90,22 +90,18 @@ body {
 
 .health-progress {
   background-color: #4bbd4b; /* Green for health */
-  width: 100%;
 }
 
 .hunger-progress {
   background-color: #bd4b4b; /* Red for hunger */
-  width: 100%;
 }
 
 .thirst-progress {
   background-color: #4b79bd; /* Blue for thirst */
-  width: 100%;
 }
 
 .happiness-progress {
   background-color: #bdb94b; /* Yellow for happiness */
-  width: 100%;
 }
 
 .value {
@@ -151,21 +147,27 @@ body {
   font-weight: bold;
 }
 
-.button.tug {
-  background-color: #bdb94b;
-  color: #6b6914;
+.button.hunger {
+  background-color: #bd4b4b;
+  color: #6b1414;
   font-weight: bold;
 }
 
-.button.hunger {
+.button.thirst {
   background-color: #4b79bd;
   color: #14226b;
   font-weight: bold;
 }
 
 .button.happiness {
-  background-color: #bd4b4b;
-  color: #6b1414;
+  background-color: #5a50bc;
+  color: #2d146b;
+  font-weight: bold;
+}
+
+.button.tug {
+  background-color: #bdb94b;
+  color: #6b6914;
   font-weight: bold;
 }
 
@@ -195,6 +197,30 @@ body {
   left: 15%;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.dynamic-label-1 {
+  position: absolute;
+  background: #212121;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  left: -23px;
+  width: 80px;
+  text-align: center;
+  top: 50px;
+}
+
+.dynamic-label-2 {
+  position: absolute;
+  background: #212121;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  left: -105px;
+  width: 80px;
+  text-align: center;
+  top: 7px;
 }
 
 .nap-label {

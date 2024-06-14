@@ -11,7 +11,7 @@ const hungerProgress = document.querySelector(".hunger-progress");
 const thirstProgress = document.querySelector(".thirst-progress");
 const happinessProgress = document.querySelector(".happiness-progress");
 
-// Function to update the progress bars based on the animal's stats
+// Update get everytime Animal method runs.
 const updateStats = (animal) => {
   healthValue.textContent = animal.health;
   hungerValue.textContent = animal.hunger;
@@ -31,60 +31,6 @@ const updateStats = (animal) => {
   happinessProgress.textContent = `${animal.happiness}`;
 };
 
-// Event listeners for pet interaction buttons
-const feedBtn = document.getElementById("feedBtn");
-const giveDrinkBtn = document.getElementById("giveDrinkBtn");
-const goForWalkBtn = document.getElementById("goForWalkBtn");
-const playFetchBtn = document.getElementById("playFetchBtn");
-const haveNapBtn = document.getElementById("haveNapBtn");
-const scratchPostBtn = document.getElementById("scratchPostBtn");
-
-feedBtn.addEventListener("click", () => {
-  pet.feed();
-  updateStats(pet);
-});
-
-giveDrinkBtn.addEventListener("click", () => {
-  pet.giveDrink();
-  updateStats(pet);
-});
-
-goForWalkBtn.addEventListener("click", () => {
-  pet.goForWalk();
-  updateStats(pet);
-});
-
-playFetchBtn.addEventListener("click", () => {
-  pet.playFetch();
-  updateStats(pet);
-});
-
-haveNapBtn.addEventListener("click", () => {
-  pet.haveNap();
-  updateStats(pet);
-});
-
-scratchPostBtn.addEventListener("click", () => {
-  pet.scratchPost();
-  updateStats(pet);
-});
-
-const gameOver = () => {
-  if (pet.health <= 0) {
-    clearInterval(timer);
-    console.log(`${pet.name} has died!`);
-  } else if (pet.hunger <= 0) {
-    clearInterval(timer);
-    console.log(`${pet.name} has starved to death!`);
-  } else if (pet.happiness <= 0) {
-    clearInterval(timer);
-    console.log(`${pet.name} ran away...`);
-  } else if (pet.hunger <= 0 && pet.happiness <= 0) {
-    clearInterval(timer);
-    console.log(`${pet.name} ran away from home and later starved to death...`);
-  }
-};
-
 class Animal {
   constructor(name) {
     this.name = name;
@@ -96,7 +42,7 @@ class Animal {
     this.startHungerThirstDecay();
     this.startHappinessDecay();
     this.startHealthDecay();
-    updateStats(this); // Update stats initially
+    updateStats(this);
   }
 
   giveDrink() {
@@ -142,7 +88,7 @@ class Animal {
       this.hunger -= 5;
     }
     if (this.thirst > 0) {
-      this.thirst -= 8; // animals can live longer without food then water, thirst decreases faster to reflect this
+      this.thirst -= 8; // animals can live longer without food than water, thirst decreases faster to reflect this
     }
     updateStats(this);
   }
@@ -177,7 +123,7 @@ class Animal {
   }
 }
 
-//dog subclass
+// Dog subclass
 class Dog extends Animal {
   constructor(name) {
     super(name);
@@ -204,7 +150,7 @@ class Dog extends Animal {
   }
 }
 
-// cat subclass
+// Cat subclass
 class Cat extends Animal {
   constructor(name) {
     super(name);
@@ -232,3 +178,64 @@ class Cat extends Animal {
     return this;
   }
 }
+
+const showButtons = (pet) => {
+  // Need to add links for buttons
+
+  if (pet instanceof Dog) {
+    dynamicBtn1.querySelector(".dynamic-label-1").textContent = "Walk";
+    dynamicBtn2.querySelector(".dynamic-label-2").textContent = "Fetch";
+    dynamicBtn1.onclick = () => {
+      pet.goForWalk();
+      updateStats(pet);
+    };
+    dynamicBtn2.onclick = () => {
+      pet.playFetch();
+      updateStats(pet);
+    };
+  } else if (pet instanceof Cat) {
+    dynamicBtn1.querySelector(".dynamic-label-1").textContent = "Nap";
+    dynamicBtn2.querySelector(".dynamic-label-2").textContent = "Scratch";
+    dynamicBtn1.onclick = () => {
+      pet.haveNap();
+      updateStats(pet);
+    };
+    dynamicBtn2.onclick = () => {
+      pet.scratchPost();
+      updateStats(pet);
+    };
+  }
+};
+
+// Need Buttons for Feed and Give Drink
+
+feedBtn.addEventListener("click", () => {
+  pet.feed();
+  updateStats(pet);
+});
+
+giveDrinkBtn.addEventListener("click", () => {
+  pet.giveDrink();
+  updateStats(pet);
+});
+
+// Create a pet instance for testing
+const pet = new Cat("Whiskers");
+updateStats(pet);
+showButtons(pet); // Show buttons based on animal type
+
+const gameOver = () => {
+  if (pet.health <= 0) {
+    clearInterval(timer);
+    console.log(`${pet.name} has died!`);
+  } else if (pet.hunger <= 0) {
+    clearInterval(timer);
+    console.log(`${pet.name} has starved to death!`);
+  } else if (pet.happiness <= 0) {
+    clearInterval(timer);
+    console.log(`${pet.name} ran away...`);
+  } else if (pet.hunger <= 0 && pet.happiness <= 0) {
+    clearInterval(timer);
+    console.log(`${pet.name} ran away from home and later starved to death...`);
+  }
+};
