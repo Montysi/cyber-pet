@@ -11,26 +11,6 @@ const hungerProgress = document.querySelector(".hunger-progress");
 const thirstProgress = document.querySelector(".thirst-progress");
 const happinessProgress = document.querySelector(".happiness-progress");
 
-// Update get everytime Animal method runs.
-const updateStats = (animal) => {
-  healthValue.textContent = animal.health;
-  hungerValue.textContent = animal.hunger;
-  thirstValue.textContent = animal.thirst;
-  happinessValue.textContent = animal.happiness;
-
-  healthProgress.style.width = `${animal.health}%`;
-  healthProgress.textContent = `${animal.health}`;
-
-  hungerProgress.style.width = `${animal.hunger}%`;
-  hungerProgress.textContent = `${animal.hunger}`;
-
-  thirstProgress.style.width = `${animal.thirst}%`;
-  thirstProgress.textContent = `${animal.thirst}`;
-
-  happinessProgress.style.width = `${animal.happiness}%`;
-  happinessProgress.textContent = `${animal.happiness}`;
-};
-
 class Animal {
   constructor(name) {
     this.name = name;
@@ -53,8 +33,7 @@ class Animal {
     console.log(
       `${this.name} drank some water. ${this.name}'s health is ${this.health}`
     );
-    updateStats(this);
-    return this;
+    this.updateStats();
   }
 
   feed() {
@@ -64,106 +43,72 @@ class Animal {
     console.log(
       `${this.name} ate some food. ${this.name}'s health is ${this.health}`
     );
-    updateStats(this);
-    return this;
+    this.updateStats();
   }
 
-  stats() {
-    return console.table({
-      name: this.name,
-      health: this.health,
-      hunger: this.hunger,
-      thirst: this.thirst,
-      happiness: this.happiness,
-    });
-  }
+  updateStats() {
+    healthValue.textContent = this.health;
+    hungerValue.textContent = this.hunger;
+    thirstValue.textContent = this.thirst;
+    happinessValue.textContent = this.happiness;
 
-  // startHungerThirstDecay() {
-  //   this.hungerThirstDecayInterval = setInterval(() => {
-  //     this.decreaseHungerThirst();
-  //   }, 2000);
-  // }
+    healthProgress.style.width = `${this.health}%`;
+    hungerProgress.style.width = `${this.hunger}%`;
+    thirstProgress.style.width = `${this.thirst}%`;
+    happinessProgress.style.width = `${this.happiness}%`;
+  }
 
   startHungerThirstDecay() {
-    if (this.IsGameRuning === true) {
-      this.hungerThirstDecayInterval = setInterval(() => {
-        this.decreaseHungerThirst();
-      }, 2000);
-    }
-  }
+    this.hungerThirstDecayInterval = setInterval(() => {
+      if (this.isGameRunning) {
+        this.hunger -= 5;
+        this.thirst -= 8;
 
-  decreaseHungerThirst() {
-    if (this.hunger > 0) {
-      this.hunger -= 5;
-    }
-    if (this.thirst > 0) {
-      this.thirst -= 8; // animals can live longer without food than water, thirst decreases faster to reflect this
-    }
-    if (
-      this.thirst <= 0 ||
-      this.health <= 0 ||
-      this.hunger <= 0 ||
-      this.happiness <= 0
-    ) {
-      this.IsGameRuning = false;
-      console.log(this.isGameRunning);
-      gameOver();
-    }
-    updateStats(this);
+        if (this.hunger <= 0 || this.thirst <= 0) {
+          this.isGameRunning = false;
+          console.log(`${this.name} has died of hunger or thirst!`);
+          clearInterval(this.hungerThirstDecayInterval);
+          clearInterval(this.happinessDecayInterval);
+          clearInterval(this.healthDecayInterval);
+        }
+        this.updateStats();
+      }
+    }, 2000);
   }
 
   startHappinessDecay() {
-    if (this.isGameRunning === true) {
     this.happinessDecayInterval = setInterval(() => {
-      this.decreaseHappiness();
+      if (this.isGameRunning) {
+        this.happiness -= 5;
+
+        if (this.happiness <= 0) {
+          this.isGameRunning = false;
+          console.log(`${this.name} has died of sadness!`);
+          clearInterval(this.hungerThirstDecayInterval);
+          clearInterval(this.happinessDecayInterval);
+          clearInterval(this.healthDecayInterval);
+        }
+        this.updateStats();
+      }
     }, 2000);
-  }
-}
-
-  decreaseHappiness() {
-    if (this.happiness > 0) {
-      this.happiness -= 5;
-    }
-    if (
-      this.thirst <= 0 ||
-      this.health <= 0 ||
-      this.hunger <= 0 ||
-      this.happiness <= 0
-    ) {
-      this.IsGameRuning = false;
-      console.log(this.isGameRunning);
-      gameOver();
-    }
-    updateStats(this);
-
   }
 
   startHealthDecay() {
-    if (this.isGameRunning === true) {
     this.healthDecayInterval = setInterval(() => {
-      this.decreaseHealth();
-    }, 2000);
-  }
-}
+      if (this.isGameRunning) {
+        if (this.hunger <= 50) this.health -= 5;
+        if (this.thirst <= 50) this.health -= 5;
 
-  decreaseHealth() {
-    if (this.hunger <= 50) {
-      this.health -= 5;
-    }
-    if (this.thirst <= 50) {
-      this.health -= 5;
-    }
-    if (
-      this.thirst <= 0 ||
-      this.health <= 0 ||
-      this.hunger <= 0 ||
-      this.happiness <= 0
-    ) {
-      this.IsGameRuning = false;
-      console.log(this.isGameRunning)
-      gameOver();
-    }
-    updateStats(this);
+        if (this.health <= 0) {
+          this.isGameRunning = false;
+          console.log(`${this.name} has died of poor health!`);
+          clearInterval(this.hungerThirstDecayInterval);
+          clearInterval(this.happinessDecayInterval);
+          clearInterval(this.healthDecayInterval);
+        }
+        this.updateStats();
+      }
+    }, 2000);
   }
 }
 
@@ -181,7 +126,6 @@ class Dog extends Animal {
       `${this.name} and you played a game of fetch! ${this.name} seems happier!`
     );
     updateStats(this);
-    return this;
   }
 
   goForWalk() {
@@ -190,7 +134,6 @@ class Dog extends Animal {
     this.happiness += 10;
     console.log(`${this.name} enjoyed their walk and seems happier!`);
     updateStats(this);
-    return this;
   }
 }
 
@@ -201,100 +144,62 @@ class Cat extends Animal {
   }
 
   haveNap() {
-    if (this.health += 15 > 100) {
-      this.health = 100
-    } else {
-      this.health += 15;
-    }
+    this.health = Math.min(this.health + 15, 100);
     this.hunger -= 5;
     this.thirst -= 5;
-    if (this.happiness += 15 > 100) {
-      this.happiness = 100;
-    } else {
-      this.happiness += 15;
-    }
-    console.log(`${this.name} had a quick cat-nap and seems refreshed!`);
+    this.happiness = Math.min(this.happiness + 15, 100);
+    console.log(`${this.name} had a nap and is refreshed!`);
     updateStats(this);
-    return this;
   }
 
   scratchPost() {
-    if ((this.health += 15 > 100)) {
-      this.health = 100;
-    } else {
-      this.health += 15;
-    }
+    this.health = Math.min(this.health + 15, 100);
     this.hunger -= 10;
     this.thirst -= 10;
-    if ((this.happiness += 15 > 100)) {
-      this.happiness = 100;
-    } else {
-      this.happiness += 15;
-    }
+    this.happiness = Math.min(this.happiness + 15, 100);
     console.log(
       `${this.name} had a good scratch on their scratching post and seems content!`
     );
     updateStats(this);
-    return this;
   }
 }
 
 const showButtons = (pet) => {
-  // Need to add links for buttons
+  const dynamicBtn1 = document.getElementById("dynamicBtn1");
+  const dynamicBtn2 = document.getElementById("dynamicBtn2");
 
   if (pet instanceof Dog) {
-    dynamicBtn1.querySelector(".dynamic-label-1").textContent = "Walk";
-    dynamicBtn2.querySelector(".dynamic-label-2").textContent = "Fetch";
-    dynamicBtn1.onclick = () => {
-      pet.goForWalk();
-      updateStats(pet);
-    };
-    dynamicBtn2.onclick = () => {
-      pet.playFetch();
-      updateStats(pet);
-    };
+    dynamicBtn1.querySelector(".label").textContent = "Walk";
+    dynamicBtn2.querySelector(".label").textContent = "Fetch";
+    dynamicBtn1.onclick = () => pet.goForWalk();
+    dynamicBtn2.onclick = () => pet.playFetch();
   } else if (pet instanceof Cat) {
-    dynamicBtn1.querySelector(".dynamic-label-1").textContent = "Nap";
-    dynamicBtn2.querySelector(".dynamic-label-2").textContent = "Scratch";
-    dynamicBtn1.onclick = () => {
-      pet.haveNap();
-      updateStats(pet);
-    };
-    dynamicBtn2.onclick = () => {
-      pet.scratchPost();
-      updateStats(pet);
-    };
+    dynamicBtn1.querySelector(".label").textContent = "Nap";
+    dynamicBtn2.querySelector(".label").textContent = "Scratch";
+    dynamicBtn1.onclick = () => pet.haveNap();
+    dynamicBtn2.onclick = () => pet.scratchPost();
   }
 };
 
-// Need Buttons for Feed and Give Drink
-
-feedBtn.addEventListener("click", () => {
-  pet.feed();
-  updateStats(pet);
-});
-
-giveDrinkBtn.addEventListener("click", () => {
-  pet.giveDrink();
-  updateStats(pet);
-});
-
-// Create a pet instance for testing
-const pet = new Cat("Whiskers");
-console.log(pet);
-updateStats(pet);
-showButtons(pet); // Show buttons based on animal type
-
-
-const gameOver = () => {
-  if (pet.health <= 0) {
-    alert(`${this.name} has died!`);
-  } if (pet.hunger <= 0) {
-    alert(`${this.name} has starved to death!`);
-  } if (pet.happiness <= 0) {
-    alert(`${this.name} ran away...`);
-  } if (pet.hunger <= 0 && pet.happiness <= 0) {
-    alert(`${this.name} ran away from home and later starved to death...`
-    );
-  }
+const gameOver = (pet) => {
+  console.log(`Game over for ${pet.name}!`);
+  clearInterval(pet.hungerThirstDecayInterval);
+  clearInterval(pet.happinessDecayInterval);
+  clearInterval(pet.healthDecayInterval);
 };
+
+document.getElementById("testDog").addEventListener("click", () => {
+  const dog = new Dog("Rex");
+  showButtons(dog);
+
+  document.getElementById("feedBtn").onclick = () => dog.feed();
+  document.getElementById("giveDrinkBtn").onclick = () => dog.giveDrink();
+});
+
+document.getElementById("testCat").addEventListener("click", () => {
+  const cat = new Cat("Fluffy");
+  showButtons(cat);
+
+  document.getElementById("feedBtn").onclick = () => cat.feed();
+  document.getElementById("giveDrinkBtn").onclick = () => cat.giveDrink();
+});
